@@ -73,19 +73,30 @@ Api.getAllModels = async () => {
 
 Api.getAllRentings = async () => {
   // @ts-ignore
-  const rentings = await db.rentings.reverse().toArray();
-  await new Promise((resolve) =>
-    setTimeout(resolve, FAKE_DELAY_DURATION_IN_SECONDS * 1000)
-  );
-  return rentings;
+  try {
+    const rentings = await db.rentings.reverse().toArray();
+    await new Promise((resolve) =>
+      setTimeout(resolve, FAKE_DELAY_DURATION_IN_SECONDS * 1000)
+    );
+    return rentings;
+  } catch (e) {
+    console.error("Api.getAllRentings error");
+    console.error(e);
+    return [];
+  }
 };
 
 Api.addRenting = async (newRentingDto) => {
   // @ts-ignore
-  await db.rentings.put({ ...newRentingDto });
-  await new Promise((resolve) =>
-    setTimeout(resolve, FAKE_DELAY_DURATION_IN_SECONDS * 1000)
-  );
+  try {
+    await db.rentings.put({ ...newRentingDto });
+    await new Promise((resolve) =>
+      setTimeout(resolve, FAKE_DELAY_DURATION_IN_SECONDS * 1000)
+    );
+  } catch (e) {
+    console.error("Api.addRenting error");
+    console.error(e);
+  }
   return true;
 };
 

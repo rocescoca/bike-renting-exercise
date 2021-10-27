@@ -1,4 +1,6 @@
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
+import useIsMounted from "ismounted";
+
 //
 import Bike from "features/bike";
 //
@@ -11,12 +13,15 @@ const CatalogPage = () => {
   const [isLoadingModels, setisLoadingModelsModels] = useState(true);
   const [models, setModels] = useState([]);
 
-  const getAllModels = () => {
-    Bike.getAllModels().then((responseModels) => {
+  const isMounted = useIsMounted();
+
+  const getAllModels = useCallback(async () => {
+    const responseModels = await Bike.getAllModels();
+    if (isMounted.current) {
       setModels(responseModels);
       setisLoadingModelsModels(false);
-    });
-  };
+    }
+  }, [isMounted]);
 
   // filters
 
@@ -66,7 +71,7 @@ const CatalogPage = () => {
 
   useEffect(() => {
     getAllModels();
-  }, []);
+  }, [getAllModels]);
 
   return (
     <section role="article">

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 //
 import Bike from "features/bike";
 //
@@ -6,8 +6,11 @@ import { faBicycle } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import RentingsTable from "ui/components/rentingsTable";
 import ModalNewRenting from "ui/components/modalNewRenting";
+import useIsMounted from "ismounted";
 
 const RentingPage = () => {
+  const isMounted = useIsMounted();
+
   // modal
 
   const [showModalNewRenting, setShowModalNewRentingModalNewRenting] =
@@ -24,13 +27,14 @@ const RentingPage = () => {
 
   // modal form
 
-  const getAllModels = () => {
+  const getAllModels = useCallback(async () => {
     setIsLoadingModalNewRentingForm(true);
-    Bike.getAllModels().then((responseModels) => {
+    const responseModels = await Bike.getAllModels();
+    if (isMounted.current) {
       setModels(responseModels);
       setIsLoadingModalNewRentingForm(false);
-    });
-  };
+    }
+  }, [isMounted]);
 
   const [isLoadingModalNewRentingForm, setIsLoadingModalNewRentingForm] =
     useState(true);
@@ -85,20 +89,25 @@ const RentingPage = () => {
 
   const [rentings, setRentings] = useState([]);
 
-  const getAllRentings = () => {
+  const getAllRentings = useCallback(async () => {
     setIsLoadingRentings(true);
-    Bike.getAllRentings().then((responseRentings) => {
+    const responseRentings = await Bike.getAllRentings();
+    if (isMounted.current) {
       setRentings(responseRentings);
       setIsLoadingRentings(false);
-    });
-  };
+    }
+  }, [isMounted]);
 
   // on startup get all rentings and all bike models
 
   useEffect(() => {
-    getAllRentings();
+    // getAllRentings();
     getAllModels();
-  }, []);
+  }, [getAllModels]);
+
+  useEffect(() => {
+    getAllRentings();
+  }, [getAllRentings]);
 
   return (
     <section>
