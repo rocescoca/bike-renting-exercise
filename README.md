@@ -12,6 +12,8 @@ SPA en React con las siguientes funcionalidades:
 
 Este ejercicio se despliega automáticamente en Netlify cada vez que se actualiza la rama master. Puedes ver la última versión aqui:
 
+[bike-renting-exercise.netlify.app](bike-renting-exercise.netlify.app)
+
 ## Ejecución en local
 
 El proyecto está creado con create-react-app, para ejecutarlo en local:
