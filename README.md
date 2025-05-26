@@ -1,22 +1,22 @@
-# Ejercicio alquiler bicis
+# Bike Rental Exercise
 
-## Aplicación
+## Application
 
-SPA en React con las siguientes funcionalidades:
+React SPA with the following features:
 
-- landing page
-- catalogo de modelos con filtros
-- historial de alquileres con formulario para nuevo alquiler
+* Landing page
+* Bike model catalog with filters
+* Rental history with a form to add new rentals
 
-## Live
+## Live Demo
 
-Este ejercicio se despliega automáticamente en Netlify cada vez que se actualiza la rama master. Puedes ver la última versión aqui:
+This exercise is automatically deployed on Netlify every time the master branch is updated. You can view the latest version here:
 
 [https://bike-renting-exercise.netlify.app](https://bike-renting-exercise.netlify.app)
 
-## Ejecución en local
+## Local Execution
 
-El proyecto está creado con create-react-app, para ejecutarlo en local:
+This project was created with create-react-app. To run it locally:
 
 ```
 npm install
